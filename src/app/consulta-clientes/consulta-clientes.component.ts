@@ -16,6 +16,7 @@ export class ConsultaClientesComponent {
 
   //atributos
   clientes: any[] = []; //array de objetos vazio
+  mensagem: string = ''; //texto vazio
   
   //método construtor (inicilizando a biblioteca HttpClient)
   constructor(private httpClient: HttpClient) {      
@@ -33,4 +34,26 @@ export class ConsultaClientesComponent {
         }
       });
   }
+
+  //função para capturar o clique no botão de exclusão
+  onDelete(id: string) {
+
+    //exibindo uma janela de confirmação
+    if(confirm('Deseja realmente excluir o cliente selecionado?')) {
+      
+        //fazendo uma requisição DELETE para a API
+        this.httpClient.delete(environment.apiClientes + "/" + id)
+          .subscribe({ //aguardando a resposta
+            next: (data: any) => { //capturando a resposta obtida
+
+              //exibindo a mensagem na página
+              this.mensagem = data.mensagem;
+
+              //fazer uma nova consulta na API
+              this.ngOnInit();
+            }
+          })
+    }
+  }
+
 }

@@ -2,6 +2,10 @@
   <h4>Sistema de controle de clientes</h4>
   <p>Página de consulta de clientes.</p>
 
+  <div class="alert alert-success" *ngIf="mensagem">
+    <strong>{{mensagem}}</strong>
+  </div>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
@@ -22,8 +26,12 @@
           <td>{{ c.tipo }}</td>
           <td>{{ c.dataCadastro | date : "dd/MM/yyyy HH:mm" }}</td>
           <td>
-            <button class="btn btn-outline-primary btn-sm me-2">Editar</button>
-            <button class="btn btn-outline-danger btn-sm">Excluir</button>
+            <button class="btn btn-outline-primary btn-sm me-2">
+              Editar
+            </button>
+            <button (click)="onDelete(c.id)" class="btn btn-outline-danger btn-sm">
+              Excluir
+            </button>
           </td>
         </tr>
       </tbody>
