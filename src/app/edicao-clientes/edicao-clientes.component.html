@@ -1,0 +1,64 @@
+<div class="m-4">
+
+    <h4>Sistema de controle de clientes</h4>
+    <p>Página de edição de clientes.</p>
+
+    <div class="alert alert-success" *ngIf="mensagem">
+        <strong>{{mensagem}}</strong>
+    </div>
+
+    <!-- formulário de cadastro -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- primeira linha -->
+        <div class="row mb-3">
+            <div class="col">
+                <label>Nome do cliente:</label>
+                <input type="text" class="form-control" formControlName="nome"/>
+                <div class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+                    Por favor, informe o nome do cliente de 8 a 100 caracteres.
+                </div>
+            </div>
+        </div>
+
+        <!-- segunda linha -->
+        <div class="row mb-3">
+            <div class="col">
+                <label>Endereço de email:</label>
+                <input type="text" class="form-control" formControlName="email"/>
+                <div class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                    Por favor, informe um endereço de email válido.
+                </div>
+            </div>
+            <div class="col">
+                <label>CPF:</label>
+                <input type="text" class="form-control" formControlName="cpf"/>
+                <div class="text-danger" *ngIf="f['cpf'].touched && f['cpf'].invalid">
+                    Por favor, informe o CPF com somente 11 dígitos. Ex: '12345678900'.
+                </div>
+            </div>
+            <div class="col">
+                <label>Selecione o tipo:</label>
+                <select class="form-select" formControlName="tipo">
+                    <option value="">Escolha uma opção</option>
+                    <option value="Comum">Cliente Comum</option>
+                    <option value="Preferencial">Cliente Preferencial</option>
+                    <option value="VIP">Cliente VIP</option>
+                </select>
+                <div class="text-danger" *ngIf="f['tipo'].touched && f['tipo'].invalid">
+                    Por favor, selecione o tipo do cliente.
+                </div>
+            </div>
+        </div>
+
+        <!-- terceira linha -->
+        <div class="row mb-3">
+            <div class="col">
+                <input type="submit" value="Salvar alterações" class="btn btn-primary"
+                    [disabled]="form.invalid"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -2,12 +2,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { RouterLink } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-consulta-clientes',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RouterLink,
+    NgxPaginationModule
   ],
   templateUrl: './consulta-clientes.component.html',
   styleUrl: './consulta-clientes.component.css'
@@ -17,6 +21,7 @@ export class ConsultaClientesComponent {
   //atributos
   clientes: any[] = []; //array de objetos vazio
   mensagem: string = ''; //texto vazio
+  pagina: number = 1; //número da página inicial
   
   //método construtor (inicilizando a biblioteca HttpClient)
   constructor(private httpClient: HttpClient) {      
@@ -54,6 +59,11 @@ export class ConsultaClientesComponent {
             }
           })
     }
+  }
+
+  //função para avançar ou voltar na paginação
+  onPaginate(event: any) {
+    this.pagina = event;
   }
 
 }
