@@ -1,0 +1,57 @@
+<div class="m-4">
+  <h4>Sistema de controle de clientes</h4>
+  <p>Página de consulta de clientes.</p>
+
+  <div class="alert alert-success" *ngIf="mensagem">
+    <strong>{{mensagem}}</strong>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>         
+          <th>Nome do cliente</th>
+          <th>Email</th>
+          <th>CPF</th>
+          <th>Tipo</th>
+          <th>Data de cadastro</th>
+          <th>Operações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes | paginate: { itemsPerPage: 5, currentPage: pagina }">          
+          <td>{{ c.nome | uppercase }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.cpf }}</td>
+          <td>{{ c.tipo }}</td>
+          <td>{{ c.dataCadastro | date : "dd/MM/yyyy HH:mm" }}</td>
+          <td>
+            <button [routerLink]="['/app/edicao-clientes', c.id]" 
+              class="btn btn-outline-primary btn-sm me-2">
+              Editar
+            </button>
+            <button (click)="onDelete(c.id)" 
+              class="btn btn-outline-danger btn-sm">
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Quantidade de registros: {{ clientes.length }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- componente de paginação -->
+  <div class="text-center">
+    <pagination-controls
+      (pageChange)="onPaginate($event)"
+      previousLabel="Página anterior"
+      nextLabel="Próxima página"
+    />
+  </div>
+
+</div>
