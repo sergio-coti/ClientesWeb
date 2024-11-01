@@ -1,0 +1,51 @@
+<h4>Edição de clientes</h4>
+<p>Preencha o formulário abaixo para alterar um cliente.</p>
+<hr/>
+
+<!-- mensagem de sucesso -->
+<div *ngIf="mensagemSucesso" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Sucesso!</strong> {{ mensagemSucesso }}
+    <button (click)="mensagemSucesso = ''" type="button" class="btn-close" aria-label="Close"></button>
+</div>
+
+<!-- mensagem de erro -->
+<div *ngIf="mensagemErro" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Erro!</strong> {{ mensagemErro }}
+    <button (click)="mensagemErro = ''" type="button" class="btn-close" aria-label="Close"></button>
+</div>
+
+<!-- Formulário de cadastro -->
+ <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label>Nome do cliente:</label>
+            <input type="text" class="form-control" formControlName="nome" placeholder="Digite o nome aqui"/>
+            <div class="text-danger" *ngIf="f['nome'].touched && f['nome'].invalid">
+                Por favor, informe o nome do cliente de 6 a 150 caracteres.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label>CPF:</label>
+            <input type="text" mask="000.000.000-00" class="form-control" formControlName="cpf" placeholder="Digite o cpf aqui"/>
+            <div class="text-danger" *ngIf="f['cpf'].touched && f['cpf'].invalid">
+                Por favor, informe o CPF com somente 11 números.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label>Email:</label>
+            <input type="text" class="form-control" formControlName="email" placeholder="Digite o email aqui"/>
+            <div class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                Por favor, informe um endereço de email válido.
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-primary" value="Salvar Alterações"
+                [disabled]="form.invalid"/>
+        </div>
+    </div>
+
+ </form>
